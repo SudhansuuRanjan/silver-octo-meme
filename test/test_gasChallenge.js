@@ -13,8 +13,13 @@ describe("Deploy Gas Challenge Contract", () => {
 
   describe("Compute Gas", () => {
     it("Should return lower gas", async () => {
-      await gas_contract.notOptimizedFunction();
-      await gas_contract.optimizedFunction();
+      const tx1 = await gas_contract.notOptimizedFunction();
+      const notOptimizedGas = await tx1.wait().then((receipt) => receipt.gasUsed);
+
+      const tx2 = await gas_contract.optimizedFunction();
+      const optimizedGas = await tx2.wait().then((receipt) => receipt.gasUsed);
+
+      expect(Number(notOptimizedGas)).to.be.greaterThan(Number(optimizedGas));
     });
   });
 
