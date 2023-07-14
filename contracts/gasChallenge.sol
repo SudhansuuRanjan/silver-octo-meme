@@ -26,10 +26,11 @@ contract gasChallenge {
     function optimizedFunction() public {
         // Caching state variable
         uint[10] storage numbersRef = numbers;
+        // using different for loop increment syntax
         for (uint i; i < numbersRef.length;) {
+            // Implementing unchecked block
             unchecked {
                 numbersRef[i] = 0;
-                // Incrementing i inside the unchecked block
                 i+=1;
             }
         }
